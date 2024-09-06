@@ -1,4 +1,4 @@
-![image of the example website]([https://github.com/highercomve/gohtmx/blob/main/full.png?raw=true]
+![image of the example website](https://github.com/highercomve/gohtmx/blob/main/full.png?raw=true)
 
 # Golang and HTMX combination for embedded linux
 
