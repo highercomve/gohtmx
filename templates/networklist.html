@@ -1,0 +1,89 @@
+{{ define "network_list" }} {{ $numOfConns := len .Data }}
+<section
+	id="connections-list"
+	class="connections flex justify-content-center col-12"
+>
+	<form
+		class="col-6"
+		hx-post="/networks"
+		hx-target="body"
+		hx-confirm="Are you sure?."
+	>
+		{{if notNil .Error}}
+		<div class="alert alert-danger">{{.Error}}</div>
+		{{end}}
+		<div
+			class="input-group mb-2 flex align-items-center justify-content-center"
+		>
+			<details class="custom-select">
+				<summary class="radios">
+					{{ if (eq $numOfConns 0) }}
+					<input type="radio" title="No networks available" checked />
+					{{ else }} {{range $conn := .Data}}
+					<input
+						type="radio"
+						name="ssid"
+						id="{{$conn.ID}}"
+						title="{{$conn.SSID}} {{if $conn.Active}}*{{end}}"
+						value="{{$conn.SSID}}"
+						{{if
+						$conn.Active}}checked{{end}}
+					/>
+					{{ end }} {{ end }}
+				</summary>
+				<ul class="list">
+					{{ if eq $numOfConns 0 }}
+					<li>
+						<label>No networks</label>
+					</li>
+					{{ else }} {{range $conn := .Data}}
+					<li>
+						<label for="{{$conn.ID}}">
+							{{block "signal" $conn.Strength}}{{end}}
+							{{$conn.SSID}} {{ if $conn.Active }} * {{ end }}
+						</label>
+					</li>
+					{{end}} {{ end }}
+				</ul>
+			</details>
+		</div>
+		<div class="input-group mb-1 flex">
+			<label class="input-group-text" for="password">Password</label>
+			<input
+				name="password"
+				id="password"
+				type="password"
+				aria-label="Password"
+				class="form-control"
+			/>
+		</div>
+		<div class="input-group mb-2 flex">
+			<input
+				type="checkbox"
+				id="show-password"
+				class=""
+				onclick="showPassword('password')"
+			/>
+			<label class="input-group-text" for="show-password"
+				>Show Password</label
+			>
+		</div>
+		<script>
+			function showPassword(elementID) {
+				var x = document.getElementById(elementID);
+				if (x.type === "password") {
+					x.type = "text";
+				} else {
+					x.type = "password";
+				}
+			}
+		</script>
+		<div class="input-group mb-2 flex justify-content-center">
+			<button class="btn btn-primary" type="submit">
+				Connect to this network
+				<div class="htmx-indicator spinner-grow" role="status"></div>
+			</button>
+		</div>
+	</form>
+</section>
+{{ end }}

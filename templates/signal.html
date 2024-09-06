@@ -1,0 +1,9 @@
+{{define "signal"}} {{$s := "poor"}} {{if ge . 20 }} {{$s = "weak"}} {{end}}
+{{if ge . 40 }} {{$s = "medium"}} {{end}} {{if ge . 60 }} {{$s = "strong"}}
+{{end}}
+<div class="signal-icon {{$s}}">
+	<div class="signal-bar"></div>
+	<div class="signal-bar"></div>
+	<div class="signal-bar"></div>
+</div>
+{{end}}
