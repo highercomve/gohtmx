@@ -2,17 +2,17 @@ package nmmodules
 
 type WifiConn struct {
 	ID        string   `json:"id"`
-	Name      string   `json:"name"`
-	Strength  int32    `json:"strength"`
-	Frequency int      `json:"frequency"`
-	BitRate   int      `json:"bitrate"`
+	SSID      string   `json:"name"`
+	Strength  int      `json:"strength"`
+	Mode      string   `json:"mode"`
+	Frequency string   `json:"frequency"`
 	Security  []string `json:"security"`
-	Saved     bool     `json:"saved"`
+	Active    bool     `json:"active"`
 }
 
 type Ip struct {
 	Addr string
-	Mask int32
+	Mask int
 }
 type IPConfiguration struct {
 	Ips      []Ip
@@ -22,5 +22,5 @@ type IPConfiguration struct {
 
 type WifiManager interface {
 	List() ([]WifiConn, error)
-	Save(config *WifiConn) error
+	Save(ssid, pass string) error
 }

@@ -46,6 +46,7 @@ func Serve(conf *servermodels.ServerConfig) {
 	}
 	router := http.NewServeMux()
 	router.Handle("/", endpoints.HandleIndex(opts))
+	router.Handle("/networks", endpoints.GetNetworksList(opts))
 	router.Handle(
 		"/static/",
 		http.StripPrefix(
@@ -98,8 +99,15 @@ func Serve(conf *servermodels.ServerConfig) {
 	conf.Logger.Println("Server stopped")
 }
 
-func notNil(a interface{}) bool {
-	return !reflect.ValueOf(a).IsNil()
+func notNil(i interface{}) bool {
+	// First, check if the interface itself is nil
+	if i == nil {
+		return false
+	}
+
+	// Then use reflect package to check if the underlying value is nil
+	v := reflect.ValueOf(i)
+	return !(v.Kind() == reflect.Ptr && v.IsNil())
 }
 
 func healthz() http.Handler {

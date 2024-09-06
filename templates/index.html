@@ -1,13 +1,37 @@
 {{template "layout_start"}} {{define "title"}}Go HTMX Example{{end}}
 
 <section class="flex justify-content-center pb-2">
-	<header class="col-6">
-		<h1>Index Header!</h1>
+	<header class="col-6 text-center">
+		<h1>Manage wifi networks with Golang + HTMX + nmcli</h1>
 	</header>
 </section>
 
 <section class="flex justify-content-center mb-2">
-	<header class="col-6">Index content</header>
+	<header class="col-12 flex align-items-center justify-content-center mb-2">
+		<button
+			class="btn btn-primary"
+			hx-get="/networks"
+			hx-target="#connections-list"
+			hx-swap="morph:outerHTML"
+		>
+			Scan Networks
+			<div class="htmx-indicator spinner-grow" role="status"></div>
+		</button>
+	</header>
+	{{if notNil .Data}} {{ block "network_list" . }}{{end}} {{else}}
+	<section id="connections-list">
+		<div
+			hx-get="/networks"
+			hx-target="#connections-list"
+			hx-swap="morph:outerHTML"
+			hx-trigger="load"
+			class="flex flex-direction-column justify-content-center align-items-center"
+		>
+			<div class="htmx-indicator spinner-grow" role="status"></div>
+			<div class="pt-1 color-grey-300">Loading networks...</div>
+		</div>
+	</section>
+	{{end}}
 </section>
 
 {{template "layout_end"}}

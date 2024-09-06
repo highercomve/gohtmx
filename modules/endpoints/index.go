@@ -18,9 +18,9 @@ func HandleIndex(opts *servermodels.ServerOptions) http.Handler {
 
 func getIndex(w http.ResponseWriter, r *http.Request, opts *servermodels.ServerOptions) {
 	data := servermodels.Response{
-		Code:  200,
+		Code:  http.StatusOK,
+		Data:  nil,
 		Error: nil,
-		Data:  map[string]string{},
 	}
 	render(w, r, opts, "index.html", &data)
 }
