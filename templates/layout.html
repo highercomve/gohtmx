@@ -1,0 +1,36 @@
+{{define "layout_start"}}
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title>{{template "title"}}</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<link rel="stylesheet" href="/static/stylesheets/main.css" />
+	</head>
+	<body hx-ext="morph">
+		<header>
+			<nav>
+				<section class="container">
+					<div class="flex justify-content-center">
+						<p class="mt-2 mb-2">
+							<img height="60" src="/static/img/logo.svg" />
+						</p>
+					</div>
+				</section>
+			</nav>
+		</header>
+		<section id="content" class="container">
+			{{end}} {{define "layout_end"}}
+		</section>
+		<footer class="pt-6 pb-4 mb-4">
+			<section class="container">
+				<div class="flex justify-content-center">Go HTMX Example</div>
+			</section>
+		</footer>
+
+		<script defer src="/static/js/htmx.min.js"></script>
+		<script defer src="/static/js/idiomorph-ext.min.js"></script>
+		<script defer src="/static/js/index.js"></script>
+	</body>
+</html>
+{{end}}
