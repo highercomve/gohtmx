@@ -21,6 +21,6 @@ type IPConfiguration struct {
 }
 
 type WifiManager interface {
-	List() []WifiConn
+	List() ([]WifiConn, error)
 	Save(config *WifiConn) error
 }
