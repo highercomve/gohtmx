@@ -15,3 +15,9 @@ type ServerOptions struct {
 	Logger     *log.Logger
 	TpmlEngine *template.Template
 }
+
+type Response struct {
+	Data  interface{} `json:"data"`
+	Error error       `json:"error"`
+	Code  int         `json:"code"`
+}

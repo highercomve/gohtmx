@@ -16,7 +16,7 @@ var (
 )
 
 func main() {
-	flag.StringVar(&listenAddr, "listen-addr", ":80", "server listen address")
+	flag.StringVar(&listenAddr, "addr", ":80", "server listen address")
 	flag.Parse()
 
 	listenAddr = strings.Trim(listenAddr, " ")
@@ -24,8 +24,8 @@ func main() {
 
 	paths := []string{
 		filepath.Join("templates", "layout.html"),
-		filepath.Join("templates", "index.html"),
 		filepath.Join("templates", "error.html"),
+		filepath.Join("templates", "index.html"),
 	}
 
 	conf := &servermodels.ServerConfig{

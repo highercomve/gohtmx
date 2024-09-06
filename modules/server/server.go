@@ -46,7 +46,13 @@ func Serve(conf *servermodels.ServerConfig) {
 	}
 	router := http.NewServeMux()
 	router.Handle("/", endpoints.HandleIndex(opts))
-	router.Handle("/static/", http.StripPrefix("/static/", http.FileServer(http.Dir("./static"))))
+	router.Handle(
+		"/static/",
+		http.StripPrefix(
+			"/static/",
+			http.FileServer(http.Dir("./static")),
+		),
+	)
 
 	nextRequestID := func() string {
 		return fmt.Sprintf("%d", time.Now().UnixNano())

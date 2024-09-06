@@ -4,6 +4,8 @@ import (
 	"encoding/json"
 	"net/http"
 	"strings"
+
+	"github.com/highercomve/gohtmx/modules/server/servermodels"
 )
 
 const (
@@ -22,13 +24,12 @@ func getFormat(c string) string {
 	return format
 }
 
-type Response struct {
-	Data  interface{} `json:"data"`
-	Error error       `json:"error"`
-	Code  int         `json:"code"`
-}
-
-func render(w http.ResponseWriter, r *http.Request, opts *servermodels.ServerOptions, name string, res *Response) {
+func render(w http.ResponseWriter,
+	r *http.Request,
+	opts *servermodels.ServerOptions,
+	name string,
+	res *servermodels.Response,
+) {
 	var err error
 	if res.Error != nil {
 		opts.Logger.Println(res.Error.Error())
